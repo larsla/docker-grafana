@@ -1,5 +1,19 @@
 FROM larsla/go-armv7l
 
-ADD build.sh /build.sh
+RUN apt-get update && apt-get install -y npm nodejs && apt-get clean
+RUN ln -s /usr/bin/nodejs /usr/bin/node
 
-CMD /build.sh
+RUN \
+    export PATH=$PATH:$GOBIN; \
+    go get github.com/grafana/grafana; \
+    cd $GOPATH/src/github.com/grafana/grafana; \
+    go run build.go setup; \
+    godep restore; \
+    go build .; \
+    npm install; \
+    npm install -g grunt-cli; \
+    grunt
+
+RUN ln -s $GOPATH/src/github.com/grafana/grafana /grafana
+
+ENTRYPOINT ["/grafana/grafana"]

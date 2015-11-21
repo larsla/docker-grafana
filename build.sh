@@ -7,12 +7,22 @@ if [ -f /usr/bin/docker ]; then
     exit 1
 fi
 
-mkdir /tmp/grafana
-cd /tmp/grafana
+mkdir /grafana
+cd /grafana
 
-git clone https://github.com/grafana/grafana.git
-cd grafana/docker/production
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
 
-bash -x build.sh
+go get github.com/grafana/grafana
+cd $GOPATH/src/github.com/grafana/grafana
+go run build.go setup
+godep restore
+go build .
 
-docker tag grafana/grafana:develop larsla/grafana-armv7l
+npm install
+npm install -g grunt-cli
+grunt
+
+
+#docker tag grafana/grafana:develop larsla/grafana-armv7l
