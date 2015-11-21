@@ -1,0 +1,5 @@
+FROM larsla/go-armv7l
+
+ADD build.sh /build.sh
+
+CMD /build.sh
