@@ -16,4 +16,6 @@ RUN \
 
 RUN ln -s $GOPATH/src/github.com/grafana/grafana /grafana
 
+WORKDIR /grafana
+
 ENTRYPOINT ["/grafana/grafana"]
