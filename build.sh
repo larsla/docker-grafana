@@ -2,7 +2,7 @@
 
 set -e
 
-[ -f /usr/bin/docker ] || echo "No docker binary available"; exit 1
+[ -f /usr/bin/docker ] || echo "No docker binary available"; exit 1
 
 mkdir /tmp/grafana
 cd /tmp/grafana
