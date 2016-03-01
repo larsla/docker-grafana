@@ -5,7 +5,7 @@ ENV CONFIG_FLAGS="--fully-static" DEL_PKGS="libgcc libstdc++" RM_DIRS=/usr/inclu
 
 WORKDIR /
 
-RUN set -ex && apk add --no-cache curl make gcc g++ binutils-gold python linux-headers paxctl libgcc libstdc++ gzip && \
+RUN set -ex && apk add --no-cache curl make gcc g++ binutils-gold python linux-headers paxctl libgcc libstdc++ gzip git && \
   curl -sSL https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}.tar.gz | tar -xz && \
   ls / && mkdir -p /node-${NODE_VERSION} && cd /node-${NODE_VERSION} && \
   ./configure --prefix=/usr ${CONFIG_FLAGS} && \
@@ -24,6 +24,7 @@ RUN set -ex && apk add --no-cache curl make gcc g++ binutils-gold python linux-h
 
 RUN \
     export PATH=$PATH:$GOBIN; \
+    go get github.com/tools/godep; \
     go get github.com/grafana/grafana; \
     cd $GOPATH/src/github.com/grafana/grafana; \
     go run build.go setup; \
