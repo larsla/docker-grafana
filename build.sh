@@ -23,6 +23,3 @@ go build .
 npm install
 npm install -g grunt-cli
 grunt
-
-
-#docker tag grafana/grafana:develop larsla/grafana-armv7l
