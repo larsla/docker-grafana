@@ -24,6 +24,7 @@ RUN set -ex && apk add --no-cache curl make gcc g++ binutils-gold python linux-h
 
 RUN \
     apk add --no-cache ca-certificates; \
+    update-ca-certificates; \
     export PATH=$PATH:$GOBIN; \
     go get github.com/tools/godep; \
     go get github.com/grafana/grafana; \
